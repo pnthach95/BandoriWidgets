@@ -116,22 +116,3 @@ CNBorderColor=207,207,207
 
 ; Text color
 CNTextColor=80,80,80
-
-; ========================================= KR SERVER =========================================
-
-; Available display languages (banner or logo, not event name!): jp, tw, kr
-KRImageDisplayLang=kr
-; Choose between banner or logo image (img or logo)
-KRImage=img
-
-; Title of the card
-TitleKR=KR Event Info
-
-; Background color
-KRBGColor=255,255,255
-
-; Border color
-KRBorderColor=207,207,207
-
-; Text color
-KRTextColor=80,80,80
