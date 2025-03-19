@@ -71,13 +71,13 @@ ENImage=img
 TitleEN=EN Event Info
 
 ; Background color
-ENBGColor=255,255,255
+ENBGColor=255,255,255,0
 
 ; Border color
-ENBorderColor=207,207,207
+ENBorderColor=207,207,207,0
 
 ; Text color
-ENTextColor=80,80,80
+ENTextColor=255,255,255
 
 ; ========================================= TW SERVER =========================================
 

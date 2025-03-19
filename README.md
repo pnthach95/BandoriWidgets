@@ -13,6 +13,10 @@ Open [Release](https://github.com/pnthach95/BandoriWidgets/releases) and downloa
 Most customization can be done under `...\Rainmeter\skins\BandoriWidgets\@Resources\variables.inc`
 For further customization, you can directly modify the skin files, but I wouldn't recommend touching anything below the `Measures` line.
 
+To enable acrylic background, add `,0` (alpha channel) at the end of `XXBGColor` and `XXBorderColor` and change `XXTextColor` to make text readable (XX is server you choose).
+
+![alt text](/acrylic.png)
+
 # Additional notes
 * The event name displayed will always be in that server's language. Ex: the japanese server displays the japanese name, etc
 * You can use either the banner or the logo (a little more SFW!)
