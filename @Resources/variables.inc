@@ -8,7 +8,10 @@ UTCOffset=7
 InvertProgress=0
 
 ; This scales the whole skin (can be decimal, but not negative)
-Size=0.7
+Size=1
+
+CharacterImgSize=50
+Padding=10
 
 ; -------- CHANGE TEXT --------
 ; To change language, change these variables:
