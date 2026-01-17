@@ -18,7 +18,7 @@ To enable acrylic background, add `,0` (alpha channel) at the end of `XXBGColor`
 ![alt text](/acrylic.png)
 
 # Additional notes
-* The event name displayed will always be in that server's language. Ex: the japanese server displays the japanese name, etc
+* The event name displayed will always be in that server's language. Ex: the Japanese server displays the Japanese name, etc
 * You can use either the banner or the logo (a little more SFW!)
 * You can change the banner/logo language as long as it is available (ex: you cannot use a language other than JP for the JP banner, etc.)
 * You can change the language and scale of everything
