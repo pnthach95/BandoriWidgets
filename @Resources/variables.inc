@@ -8,7 +8,7 @@ UTCOffset=7
 InvertProgress=0
 
 ; This scales the whole skin (can be decimal, but not negative)
-Size=1
+Size=0.7
 
 CharacterImgSize=50
 Padding=10
