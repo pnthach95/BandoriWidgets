@@ -47,7 +47,7 @@ function rain:init()
       local bgImg = string.gsub(string.gsub(logoImg,'logo', 'top'), 'Logo', 'Top')
       local startAt = events.items[currentEventId].startAt
       local endAt = events.items[currentEventId].endAt
-      local type = events.items[currentEventId].type
+      local eventType = events.items[currentEventId].type
       local name = events.items[currentEventId].name[lang + 1]
       rain:bang("!SetVariable", "eventName", name)
       rain:bang("!SetVariable", "logoImg", logoImg)
@@ -56,7 +56,7 @@ function rain:init()
       rain:bang("!SetVariable", "startAt", startAt)
       rain:bang("!SetVariable", "endAt", endAt)
       rain:bang("!SetVariable", "displayLanguage", displayLanguage[lang])
-      meter("MeterEventType"):text(eventTypeName[type]):update()
+      meter("MeterEventType"):text(eventTypeName[eventType] or eventType):update()
 
       local detailResponse = fetch(detailEventURL..currentEventId..'.json')
       if detailResponse.ok then
