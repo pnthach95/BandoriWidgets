@@ -29,20 +29,7 @@ Hour="h "
 Minute="m "
 Second="s"
 
-; Change event type text
-Story=Story
-ChallengeLive=Challenge Live
-VersusLive=VS Live
-LiveGoals=Live Goals
-MissionLive=Mission Live
-Festival=Team Live Festival
-Medley=Medley Live
-
 ;Change attribute text
-Happy=Happy
-Pure=Pure
-Cool=Cool
-Powerful=Powerful
 StudioTickets=Studio Ticket
 Coins=Coins
 ; ========================================= JP SERVER =========================================
@@ -55,13 +42,13 @@ TitleJP=JP Event Info
 JPImage=img
 
 ; Background color
-JPBGColor=255,255,255
+JPBGColor=255,255,255,0
 
 ; Border color
-JPBorderColor=207,207,207
+JPBorderColor=207,207,207,0
 
 ; Text color
-JPTextColor=80,80,80
+JPTextColor=255,255,255
 
 ; ========================================= WW SERVER =========================================
 
@@ -93,13 +80,13 @@ TWImage=img
 TitleTW=TW Event Info
 
 ; Background color
-TWBGColor=255,255,255
+TWBGColor=255,255,255,0
 
 ; Border color
-TWBorderColor=207,207,207
+TWBorderColor=207,207,207,0
 
 ; Text color
-TWTextColor=80,80,80
+TWTextColor=255,255,255
 
 ; ========================================= CN SERVER =========================================
 
@@ -112,10 +99,10 @@ CNImage=img
 TitleCN=CN Event Info
 
 ; Background color
-CNBGColor=255,255,255
+CNBGColor=255,255,255,0
 
 ; Border color
-CNBorderColor=207,207,207
+CNBorderColor=207,207,207,0
 
 ; Text color
-CNTextColor=80,80,80
+CNTextColor=255,255,255

@@ -4,6 +4,7 @@
 ---@field eventType string
 ---@field eventName string[]
 ---@field bannerAssetBundleName string
+---@field assetBundleName string
 ---@field startAt string[]
 ---@field endAt string[]
 ---@field characters {characterId: integer, percent: integer}[]
@@ -11,6 +12,58 @@
 ---@field eventCharacterParameterBonus {performance: integer, technique: integer, visual: integer}?
 
 --#endregion
+
+local github = "https://api.github.com/repos/pnthach95/BandoriWidgets/releases/latest"
+
+---Parse version to table
+---@param v string | number
+---@return Version
+local function parseVersion(v)
+  v = tostring(v)
+  local major, minor = v:match("(%d+)%.(%d+)")
+  return {
+    major = tonumber(major) or 0,
+    minor = tonumber(minor) or 0
+  }
+end
+
+---Uppercase the first letter of a string
+---@param name string
+---@return string
+local function attributeName(name)
+  if name == "happy" then
+    return "Happy"
+  elseif name == "pure" then
+    return "Pure"
+  elseif name == "cool" then
+    return "Cool"
+  elseif name == "powerful" then
+    return "Powerful"
+  end
+  return tostring(name)
+end
+
+---Uppercase the first letter of a string
+---@param name string
+---@return string
+local function eventTypeName(name)
+  if name == "story" then
+    return "Story"
+  elseif name == "challenge" then
+    return "Challenge Live"
+  elseif name == "versus" then
+    return "Versus Live"
+  elseif name == "live_try" then
+    return "Live Goals"
+  elseif name == "mission_live" then
+    return "Mission Live"
+  elseif name == "festival" then
+    return "Team Live Festival"
+  elseif name == "medley" then
+    return "Medley Live"
+  end
+  return tostring(name)
+end
 
 local fetch = require("fetch")
 local json = require("json").decode
@@ -77,28 +130,55 @@ function rain:init()
       local attributes = eventData.attributes
       local parameterBonus = eventData.eventCharacterParameterBonus
       --Set option to measures
-      rain:bang('!SetOption', 'EventId', 'String', id)
-      rain:bang('!SetOption', 'EventType', 'String', eventData.eventType)
-      rain:bang('!SetOption', 'EventName', 'String', eventData.eventName[language])
-      rain:bang('!SetOption', 'EventBundle', 'String', eventData.bannerAssetBundleName)
-      rain:bang('!SetOption', 'EventStart', 'String', eventData.startAt[language])
-      rain:bang('!SetOption', 'EventEnd', 'String', eventData.endAt[language])
-      rain:bang('!SetOption', 'EventAttribute', 'String', attributes[1].attribute)
-      rain:bang('!SetOption', 'EventAttributePercent', 'String', attributes[1].percent)
+      rain:bang('!SetVariable', 'EventId', id)
+      rain:bang('!SetVariable', 'EventType', eventTypeName(eventData.eventType))
+      rain:bang('!SetVariable', 'EventName', eventData.eventName[language])
+      rain:bang('!SetVariable', 'EventBundle', eventData.bannerAssetBundleName)
+      rain:bang('!SetVariable', 'assetBundleName', eventData.assetBundleName)
+      rain:bang('!SetVariable', 'EventStart', eventData.startAt[language])
+      rain:bang('!SetVariable', 'EventEnd', eventData.endAt[language])
+      rain:bang('!SetVariable', 'EventAttribute', attributes[1].attribute)
+      rain:bang('!SetVariable', 'EventAttributeText', attributeName(attributes[1].attribute) .. " +" .. attributes[1].percent .. "%")
       for i = 1, #characters do
         rain:bang('!SetOption', 'EventCharacter' .. i, 'String', characters[i].characterId)
       end
-      rain:bang('!SetOption', 'EventCharacterPercent', 'String', characters[1].percent)
+      rain:bang('!SetVariable', 'EventCharacterPercent', characters[1].percent)
       if type(parameterBonus) == 'table' then
         for key, value in pairs(parameterBonus) do
           if key ~= 'eventId' and value > 0 then
-            rain:bang('!SetOption', 'EventCharacterParameterBonus', 'String',
+            rain:bang('!SetVariable', 'EventCharacterParameterBonus',
               key:sub(1, 1):upper() .. key:sub(2) .. ' +' .. value .. '%')
+            rain:bang("!SetOption", "MeterParameterBonusInfo", "Hidden", 0)
           end
         end
       end
+      rain:bang("!SetOption", "MeterEventName", "Hidden", 0)
+      rain:bang("!SetOption", "MeterEventType", "Hidden", 0)
+      rain:bang("!SetOption", "MeterAttributeInfo", "Hidden", 0)
+      rain:bang("!SetOption", "MeterCharacterBonus", "Hidden", 0)
       rain:bang('!EnableMeasureGroup', 'ImgDl')
       rain:bang('!EnableMeasureGroup', 'Calcs')
+    end
+  end
+
+  ---@type FetchResponse
+  local githubRes = fetch(github)
+  if githubRes.ok then
+    local gitResText = githubRes:text()
+    if not gitResText then
+      error('Failed to check version')
+    else
+      ---@type table<"tag_name", string>
+      local gitResJson = json(gitResText)
+      local gitVersion = parseVersion(gitResJson.tag_name)
+      local currentVersion = parseVersion(rain:var("Version"))
+      if gitVersion.major > currentVersion.major then
+        rain:bang("!SetOption", "MeterDownloadImg", "Hidden", 0)
+      elseif gitVersion.major == currentVersion.major then
+        if gitVersion.minor > currentVersion.minor then
+          rain:bang("!SetOption", "MeterDownloadImg", "Hidden", 0)
+        end
+      end
     end
   end
 end
