@@ -138,10 +138,14 @@ function rain:init()
       rain:bang('!SetVariable', 'EventStart', eventData.startAt[language])
       rain:bang('!SetVariable', 'EventEnd', eventData.endAt[language])
       rain:bang('!SetVariable', 'EventAttribute', attributes[1].attribute)
-      rain:bang('!SetVariable', 'EventAttributeText', attributeName(attributes[1].attribute) .. " +" .. attributes[1].percent .. "%")
+      rain:bang('!SetVariable', 'EventAttributeText',
+        attributeName(attributes[1].attribute) .. " +" .. attributes[1].percent .. "%")
       for i = 1, #characters do
         rain:bang('!SetVariable', 'EventCharacter' .. i, characters[i].characterId)
         rain:bang("!SetOption", "MeterCharacter" .. i, "Hidden", 0)
+        if (i == 10) then
+          rain:bang("!SetVariable", "CharacterImgSize", 45)
+        end
       end
       rain:bang('!SetVariable', 'EventCharacterPercent', characters[1].percent)
       if type(parameterBonus) == 'table' then
